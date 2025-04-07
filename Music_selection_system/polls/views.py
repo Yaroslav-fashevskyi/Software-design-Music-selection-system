@@ -17,7 +17,7 @@ def register_view(request):
             user = form.save()
             # Після успішного збереження, одразу авторизуємо користувача
             login(request, user)
-            return redirect('home')
+            return redirect('http://127.0.0.1:8000/polls/')
     else:
         form = UserRegistrationForm()
 
