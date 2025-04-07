@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Головна сторінка</title>
+</head>
+<body>
+    <h1>Вітаємо, {{ user.username }}!</h1>
+    <p>Ви на потужній сторінці авторизованих.</p>
+    <a href="{% url 'polls:logout' %}">Вийти</a>
+</body>
+</html>

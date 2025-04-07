@@ -5,6 +5,8 @@ from .models import Question
 from django.contrib.auth import login, logout, authenticate
 from .forms import UserRegistrationForm
 from .forms import UserLoginForm
+from django.contrib.auth.decorators import login_required
+
 
 def question_list(request):
     questions = Question.objects.all()
@@ -33,13 +35,19 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect(reverse('question_list'))
+                return redirect(reverse('polls:home'))
 
     return render(request, 'login.html', {'form': form})
 
 
 def logout_view(request):
     logout(request)
-    return redirect('login')  # Повертаємо користувача на сторінку логіну (або на будь-яку іншу)
+    return redirect('polls:login')
 
 # Create your views here.
+
+
+@login_required
+def home_view(request):
+    return render(request, 'home.html')
+
