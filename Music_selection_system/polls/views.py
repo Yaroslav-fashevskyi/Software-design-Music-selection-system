@@ -6,6 +6,9 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import UserRegistrationForm
 from .forms import UserLoginForm
 from django.contrib.auth.decorators import login_required
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import QuestionSerializer
 
 
 def question_list(request):
@@ -50,4 +53,13 @@ def logout_view(request):
 @login_required
 def home_view(request):
     return render(request, 'home.html')
+
+
+
+class QuestionListView(APIView):
+    def get(self, request):
+        questions = Question.objects.all()  # отримання всіх питань
+        serializer = QuestionSerializer(questions, many=True)
+        return Response(serializer.data)
+
 
